@@ -7,6 +7,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: [
+      'mymfu.doitung.net',
+      'localhost',
+    ]
+  },
   plugins: [react()],
   resolve: {
     alias: {
