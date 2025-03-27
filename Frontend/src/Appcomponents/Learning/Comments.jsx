@@ -11,7 +11,8 @@ import {
 import Button from '@mui/material/Button';
 import { MoreHorizontal, Pencil, TrashIcon } from 'lucide-react';
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:4500");
+const socket = io.connect(import.meta.env.VITE_SERVER_URL);
+
 
 const Comments = ({ activeLesson, user, lesson }) => {
   const [comments, setComments] = useState([]);
