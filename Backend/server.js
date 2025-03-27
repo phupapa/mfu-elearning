@@ -30,6 +30,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
+console.log("test commit");
+
 //http server
 const server = http.createServer(app);
 const io = new Server(server, {
