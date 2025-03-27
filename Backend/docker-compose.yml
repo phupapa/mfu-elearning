@@ -9,7 +9,7 @@ services:
       - .:/usr/src/app
     ports:
       - "99:4500"
-    command: ["sh", "-c", "npm install && npm install vite --save-dev && node server.js"]
+    command: ["sh", "-c", "npm install && node server.js"]
     environment:
       - NODE_ENV=production
       - PORT=4500
