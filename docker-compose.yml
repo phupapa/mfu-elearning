@@ -6,7 +6,7 @@ services:
     container_name: react
     working_dir: /usr/src/app
     volumes:
-      - ./frontend:/usr/src/app
+      - ./Frontend:/usr/src/app
     ports:
       - "5173:5173"  # Expose React development server
     command: ["sh", "-c", "npm start -- --host"]
@@ -22,7 +22,7 @@ services:
     container_name: express
     working_dir: /usr/src/app
     volumes:
-      - ./backend:/usr/src/app
+      - ./Backend:/usr/src/app
     ports:
       - "4500:4500"  # API server
     command: ["sh", "-c", "npm install && node server.js"]
