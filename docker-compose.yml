@@ -1,4 +1,21 @@
 services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80" 
+    volumes: 
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf 
+    restart: always  
+    networks:
+      - app-network
+    depends_on:
+      - frontend
+      - backend
+      - db
+      - phpmyadmin
+
   frontend:
     image: node:18-alpine 
     platform: linux/amd64
@@ -7,13 +24,14 @@ services:
     volumes:
       - ./Frontend:/usr/src/app
     ports:
-      - "5173:5173"  # Expose React development server
-    # command: ["sh", "-c", "npm start -- --host"]
+      - "5173:5173"  
     command: ["sh", "-c", "npm install vite --save-dev && npm start -- --host"]
     environment:
       - NODE_ENV=development
     depends_on:
       - backend
+    networks:
+      - app-network
 
 
   backend:
@@ -35,6 +53,8 @@ services:
       - DB_NAME=elearning
     depends_on:
       - db
+    networks:
+      - app-network
 
   db:
     image: mysql:8.0 
@@ -47,6 +67,8 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-data:/var/lib/mysql 
+    networks:
+      - app-network
 
   phpmyadmin:
     image: phpmyadmin 
@@ -62,6 +84,13 @@ services:
       - db
     links:
       - db
+    networks:
+      - app-network
 
 volumes:
   mysql-data: 
+
+
+networks:
+  app-network:
+    driver: bridge
